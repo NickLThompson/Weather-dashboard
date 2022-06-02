@@ -15,55 +15,62 @@
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row navbar navbar-dark bg-dark">
-            <div class="col-12 text-center">
-                <h1 class="navbar brand pb-0 px-0 text-center">Weather Dashboard</h1>
+    <div class = "container-fluid">
+        <div class = "row navbar navbar-light" style = "background-color: rgb(89, 180, 255)">
+            <!-- <div class = "col-12"> -->
+                <h1 class="navbar brand pb-0 px-0">Weather Dashboard!</h1>
             </div>
         </div>
     </div>
     <div class="row content-row">
-        <div class="col-12 col-md-3 bg-light pt-3 pl-5">
-            <h2>Search for a City:</h2>
-            <form class="form-group input-group">
-                <input type="text" class="form-controller" id="city-finder" placeholder="Enter city name">
-                <button class="btn btn-info" type="button" id="city-search-button">
-            </form>button>
+        <div class="col-12 col-md-3 bg-light pt-3">
+            <h2>Search for a city:</h2>
+            <form>
+                <div class = "form-group input-group">
+                    <input type = "text" class="form-control" id="city-search" placeholder="Enter location here">
+                    <div class = "input-group-append">
+                        <button id = "city-search-button" class="btn btn-info" id="city-search-button">Search</button>
+                    </div>
+                </div>
             </form>
-        </div>
-    </div>
-    <div class="search">
-        <ul class="search-history-list" id="search-history-list"></ul>
-        <button id="clear-history">Clear History</button>
-    </div>
-    <div id="weather" class="col-12 col-md-9 hide">
-        <div class="row" class="col-12">
-            <div class="city-info border rounded my-3 px-3 py-3">
-                <h2 id="current-city">City Information <small class="text-muted" id="todays-Date"></small></h2>
-                <p class="mb-1">Temp: <span id="current-Temperature"></span></p>
-                <p class="mb-1">Wind: <span id="current-WindSpeed"></span></p>
-                <p class="mb-1">Humidity: <span id="current-Humidity"></span></p>
-                <p class="mb-1">UV Index: <span id="current-UVIndex"></span></p>
+            <div class="card">
+                <ul class="list-group list-group-flush" id="search-history-list">
+                </ul>
+                <button id="clear-history" class="btn btn-sm btn-secondary hide">Clear History</button>
             </div>
         </div>
-        <h3>5 Day Forecast</h3>
-        <div id="five-Day-Forecast" class="row" class="col-2">
-            <div class="card">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">Date</h5>
-                        <h6 class="card-subtitle mb-2 text-muted">Put a favicon here</h6>
-                        <p class="card-text">Temp: </p>
-                        <p class="card-text">Wind: </p>
-                        <p class="card-text">Humidity: </p>
-                        <p class="card-text">UV Index: </p>
-                        <a href="#" class="card-link">Card link</a>
-                        <a href="#" class="card-link">Another link</a>
+        <div id="weather" class="col-12 col-md-9 hide">
+            <div class="row">
+                <div class="col-12">
+                    <div class="city-info border rounded my-3 px-3 py-3">
+                        <h2 id="current-city">City Information <small class="text-muted" id="todays-Date"></small></h2>
+                        <p class="mb-1">Temp: <span id="current-Temperature"></span></p>
+                        <p class="mb-1">Wind: <span id="current-WindSpeed"></span></p>
+                        <p class="mb-1">Humidity: <span id="current-Humidity"></span></p>
+                        <p class="mb-1">UV Index: <span id="current-UVIndex"></span></p>
+                    </div>
+                </div>
+            </div>
+            <h3>5 Day Forecast</h3>
+            <div id="five-Day-Forecast" class="row" class="col-2">
+                <div class="card">
+                    <div class="card" style="width: 18rem;">
+                        <div class="card-body">
+                            <h5 class="card-title">Date</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Put a favicon here</h6>
+                            <p class="card-text">Temp: </p>
+                            <p class="card-text">Wind: </p>
+                            <p class="card-text">Humidity: </p>
+                            <p class="card-text">UV Index: </p>
+                            <a href="#" class="card-link">Card link</a>
+                            <a href="#" class="card-link">Another link</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <script src="./Assets/script.js"></script>
+    </div>
+    <script src="./Assets/script.js"></script>
 </body>
 
 </html>
