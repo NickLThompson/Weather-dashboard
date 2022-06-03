@@ -24,50 +24,6 @@ $("current-date").text("(" + currentDate + ")");
 initializeHistory();
 showClearHistory();
 
-
-// when the search button is clicked this will add the value to the search history
-citySearchButton.on("click", function(event) {
-    event.preventDefault();
-
-    // grabbing saved value from the search bar
-    var searchBarValue = citySearchInput.val();
-
-    currentConditionsRequest(searchBarValue)
-    searchHistory(searchBarValue);
-    citySearchInput.val("");
-})
-
-// however, this does the same thing but when hitting enter on your keyboard 
-$(document).on("submit", function() {
-    // this stops the page from refreshing
-    event.preventDefault();
-
-    // this saves the value put inside the search bar
-    var searchBarValue = citySearchInput.val();
-
-    currentConditionsRequest(searchBarValue)
-    searchHistory(searchBarValue);
-    citySearchInput.val("");
-});
-
-// when you click the Clear History button.. 
-clearHistoryButton.on("click", function() {
-    
-    // this clears the city list history array
-    cityArray = [];
-    // this updates the city list history in the local storage, which is now cleared
-    listArray();
-
-    $(this).addClass("hide");
-});
-
-searchHistoryList.on("click", "li.city-btn", function(event) {
-    var value = $(this).data("value");
-    currentConditionsRequest(value);
-    searchHistory(value);
-});
-
-
 // this function will request open weather api based on the user input
 function currentConditionsRequest(searchBarValue) {
 
@@ -199,3 +155,47 @@ function showClearHistory() {
         clearHistoryButton.removeClass("hide");
     }
 }
+
+// adding all the events to the bottom of my page
+
+// when the search button is clicked this will add the value to the search history
+citySearchButton.on("click", function(event) {
+    event.preventDefault();
+
+    // grabbing saved value from the search bar
+    var searchBarValue = citySearchInput.val();
+
+    currentConditionsRequest(searchBarValue)
+    searchHistory(searchBarValue);
+    citySearchInput.val("");
+})
+
+// however, this does the same thing but when hitting enter on your keyboard 
+$(document).on("submit", function() {
+    // this stops the page from refreshing
+    event.preventDefault();
+
+    // this saves the value put inside the search bar
+    var searchBarValue = citySearchInput.val();
+
+    currentConditionsRequest(searchBarValue)
+    searchHistory(searchBarValue);
+    citySearchInput.val("");
+});
+
+// when you click the Clear History button.. 
+clearHistoryButton.on("click", function() {
+    
+    // this clears the city list history array
+    cityArray = [];
+    // this updates the city list history in the local storage, which is now cleared
+    listArray();
+
+    $(this).addClass("hide");
+});
+
+searchHistoryList.on("click", "li.city-btn", function(event) {
+    var value = $(this).data("value");
+    currentConditionsRequest(value);
+    searchHistory(value);
+});
