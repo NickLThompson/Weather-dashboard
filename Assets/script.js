@@ -72,20 +72,18 @@ searchHistoryList.on("click", "li.city-btn", function(event) {
 function currentConditionsRequest(searchBarValue) {
 
     // grabs the url for call
-    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + APIkey;
+    var URL = "https://api.openweathermap.org/data/2.5/weather?q=London";
 
     // fetch OpenWeatherAPI data (hard part)
     $.ajax({
-        url: queryURL,
+        url: URL,
         method: "GET"
     }).then(function(response){
-        console.log(response);
         currentCity.text(response.name);
         currentCity.append("<small class='text-muted' id='current-date'>");
         $("#current-date").text("(" + currentDate + ")");
-        currentCity.append("<img src='https://openweathermap.org/img/w/" + response.weather[0].icon + ".png' alt='" + response.weather[0].main + "' />" )
-        currentTemp.text(response.main.temp);
-        currentTemp.append("&deg;F");
+        currentTemperature.text(response.main.temp);
+        currentTemperature.append("&deg;F");
         currentHumidity.text(response.main.humidity + "%");
         currentWindSpeed.text(response.wind.speed + "MPH");
 
@@ -93,15 +91,51 @@ function currentConditionsRequest(searchBarValue) {
         var lon = response.coord.lon;
         
 
-        var coordinates = "lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=imperial&appid=" + APIkey;
-        fetch("https://api.openweathermap.org/data/2.5/onecall?" + coordinates)
+        // var coordinates = "lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=imperial&appid=" + APIkey;
+        fetch("https://api.openweathermap.org/data/2.5/onecall?")
         .then(function (response) {
             return response.json();
         });
+        
+        // AJAX call for 5-day forecast
+        $.ajax({
+            url: forecastURL,
+            method: "GET"
+        }).then(function(response){
+            console.log(response);
+            $('#five-Day-Forecast').empty();
+            for (var i = 1; i < response.list.length; i+=8) {
 
-        // Code goes here
+                var forecastDate = moment(response.list[i].dt_txt).format("L");
+                console.log(forecastDate);
+
+                var forecastCol = $("<div class = 'col-12 col-md-6 col-lg forecast-day mb-3'>");
+                var forecastCard = $("<div class = 'card'>");
+                var forecastCardBody = $("<div class = 'card-body'>");
+                var forecastDateHeader = $("<h2 class = 'card-title'>");
+                var forecastTemperature = $("<p class = 'card-text mb-1'>");
+                var forecastHumidity = $("<p class = 'card-text mb-1'>");
 
 
+                $('#five-Day-Forecast').append(forecastCol);
+                forecastCol.append(forecastCard);
+                forecastCard.append(forecastCardBody);
+
+                forecastCardBody.append(forecastDateHeader);
+                forecastCardBody.append(forecastTemperature);
+                forecastCardBody.append(forecastHumidity);
+                forecastDateHeader.text(forecastDateHeader);
+                forecastTemperature.text(response.list[i].main.temp);
+                forecastTemperature.prepend("Temperature: ");
+                forecastTemperature.append("&deg;F");
+                forecastHumidity.text(response.list[i].main.humidity);
+                forecastHumidity.prepend("Humidity: ");
+                forecastHumidity.append("%");
+            
+            }
+        });
+    });
+};
 
 // function that saves and displays the city search history
 function searchHistory(searchBarValue) {
