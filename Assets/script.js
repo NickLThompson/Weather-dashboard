@@ -72,70 +72,36 @@ searchHistoryList.on("click", "li.city-btn", function(event) {
 function currentConditionsRequest(searchBarValue) {
 
     // grabs the url for call
-    var queryURL = "api.openweathermap.org/data/2.5/weather?q=" + searchBarValue + "&units=imperial&appid=" + APIkey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + APIkey;
 
     // fetch OpenWeatherAPI data (hard part)
-    fetch({
+    $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function(response){
         console.log(response);
         currentCity.text(response.name);
-        currentCity.append("<small class = 'text-muted' id = 'current-date'>");
+        currentCity.append("<small class='text-muted' id='current-date'>");
         $("#current-date").text("(" + currentDate + ")");
-        currentTemperature.text(response.main.temp);
-        currentTemperature.append("&deg;F");
+        currentCity.append("<img src='https://openweathermap.org/img/w/" + response.weather[0].icon + ".png' alt='" + response.weather[0].main + "' />" )
+        currentTemp.text(response.main.temp);
+        currentTemp.append("&deg;F");
         currentHumidity.text(response.main.humidity + "%");
         currentWindSpeed.text(response.wind.speed + "MPH");
 
-        var latitude = response.coord.lat;
-        var longitude = response.coord.lat;
+        var lat = response.coord.lat;
+        var lon = response.coord.lon;
+        
 
-        var UVIndexURL = "https://api.openweathermap.org/data/2.5/uvi?&lat=" + latitude + "&lon=" + longitude + "&appid=" + APIkey;
-
-        // fetching the 5 day forecast
-        fetch({
-            url: forecastURL,
-            method: "GET"
-        }).then(function(response){
-            console.log(response);
-            $("five-Day-Forecast").empty();
-            for (var i = 1; i < response.list.length; i+=8) {
-                
-                var forecastDateString = moment(response.list[i].dt_txt).format("L");
-                console.log(forecastDateString);
-
-                var forecastCol = $("<div class='col-12 col-md-6 col-lg forecast-day mb-3'>");
-                var forecastCard = $("<div class='card'>");
-                var forecastCardBody = $("<div class='card-body'>");
-                var forecastDate = $("<h5 class='card-title'>");
-                var forecastIcon = $("<img>");
-                var forecastTemp = $("<p class='card-text mb-0'>");
-                var forecastHumidity = $("<p class='card-text mb-0'>");
-
-
-                $('#five-day-forecast').append(forecastCol);
-                forecastCol.append(forecastCard);
-                forecastCard.append(forecastCardBody);
-
-                forecastCardBody.append(forecastDate);
-                forecastCardBody.append(forecastIcon);
-                forecastCardBody.append(forecastTemp);
-                forecastCardBody.append(forecastHumidity);
-                
-                forecastIcon.attr("src", "https://openweathermap.org/img/w/" + response.list[i].weather[0].icon + ".png");
-                forecastIcon.attr("alt", response.list[i].weather[0].main)
-                forecastDate.text(forecastDateString);
-                forecastTemp.text(response.list[i].main.temp);
-                forecastTemp.prepend("Temp: ");
-                forecastTemp.append("&deg;F");
-                forecastHumidity.text(response.list[i].main.humidity);
-                forecastHumidity.prepend("Humidity: ");
-                forecastHumidity.append("%"); 
-            }
+        var coordinates = "lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=imperial&appid=" + APIkey;
+        fetch("https://api.openweathermap.org/data/2.5/onecall?" + coordinates)
+        .then(function (response) {
+            return response.json();
         });
-    });
-};
+
+        // Code goes here
+
+
 
 // function that saves and displays the city search history
 function searchHistory(searchBarValue) {
