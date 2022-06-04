@@ -1,6 +1,6 @@
 // integrating elements from html
-var citySearchInput = $("city-search");
-var citySearchButton = $("city-search-button");
+var citySearchInput = $("#city-search");
+var citySearchButton = $("#city-search-button");
 var searchHistoryList = $("#search-history-list");
 var clearHistoryButton = $("#clear-history");
 var currentCity = $("#current-city");
@@ -18,7 +18,7 @@ var cityArray = [];
 
 // get the current date and the display in the title
 var currentDate = moment().format("L");
-$("current-date").text("(" + currentDate + ")");
+$("#current-date").text("(" + currentDate + ")");
 
 // check the search history when the page loads
 initializeHistory();
@@ -28,7 +28,7 @@ showClearHistory();
 function currentConditionsRequest(searchBarValue) {
 
     // grabs the url for call
-    var URL = "https://api.openweathermap.org/data/2.5/weather?q=London";
+    var URL = "https://api.openweathermap.org/data/2.5/weather?q=";
 
     // fetch OpenWeatherAPI data (hard part)
     $.ajax({
@@ -48,8 +48,8 @@ function currentConditionsRequest(searchBarValue) {
         
 
         // var coordinates = "lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=imperial&appid=" + APIkey;
-        fetch("https://api.openweathermap.org/data/2.5/onecall?")
-        .then(function (response) {
+        fetch("api.openweathermap.org/data/2.5/forecast?id=524901&appid=" + APIkey);
+        then(function (response) {
             return response.json();
         });
         

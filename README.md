@@ -38,6 +38,6 @@ it is a problem with the link in the code itself. I tried to cut down
 
 the link to a very simple url with nothing extra added onto it, but even
 
-that didn't work. This is just something I'll have to shelf and move on with;
+that didn't work. I directly copy and pasted the api key from their email.
 
-Just about one step away from a total failure.
+I'll have to shelf this and move on. This upcoming project will be better.
